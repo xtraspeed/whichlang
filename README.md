@@ -1,6 +1,6 @@
 # whichlang
 
-whichlang is a Python library for identifying the language of the given text
+whichlang is a Python library for identifying the language of the given text for Indian languages.
 
 ## Installation
 
