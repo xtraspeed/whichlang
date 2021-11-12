@@ -11,7 +11,6 @@ except:
     import pickle
 from collections import defaultdict
 
-
 LANGUAGES = {"as": "Assamese", "gu": "Gujarati", "hi": "Hindi",
              "ka": "Kannada", "ml": "Malayalam",
              "mr": "Marathi", "or": "Oriya", "pa": "Punjabi", "ta": "Tamil", "te": "Telugu"}
@@ -20,7 +19,7 @@ MIN_NGRAM_LENGTH = 1
 MAX_NGRAM_LENGTH = 3
 MAX_NUM_OF_NGRAMS = 1000
 PENALTY = 1250
-LANGUAGE_MODELS = 'language-models'
+LANGUAGE_MODELS = '/languagemodels/'
 
 
 def get_input_ngrams(input):
@@ -80,8 +79,8 @@ def cleanup_data(data):
     data = ''.join(ch for ch in data if ch not in exclude)
     data = ''.join(ch for ch in data if not ch.isdigit())
     data = " " + data + " " * (MAX_NGRAM_LENGTH - 1)
-    if not isinstance(data, unicode):
-        return unicode(data, "utf-8", errors='strict')
+    if not isinstance(data, str):
+        return str(data, "utf-8", errors='strict')
     return data
 
 
@@ -92,9 +91,15 @@ def load_language_models():
         [dictionary]: [Contains language model that was already trained for each language]
     """
     dic = {}
+    
     for lang in LANGUAGES:
+        #path = os.getcwd()+ LANGUAGE_MODELS + LANGUAGES[lang] + ".p"
+        name = "{0}.p".format(LANGUAGES[lang])
+        path_dir = os.path.join(os.path.dirname(__file__), 'language-models')
+        path = os.path.join(path_dir, name)
         lang_dic = pickle.load(
-            open('{0}\\{1}.p'.format(LANGUAGE_MODELS, LANGUAGES[lang]), "rb"))
+            open(path, "rb"))
+            #open('{0}\\{1}.p'.format(LANGUAGE_MODELS, LANGUAGES[lang]), "rb"))
         dic[LANGUAGES[lang]] = lang_dic
     return dic
 
