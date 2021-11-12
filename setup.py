@@ -3,13 +3,15 @@ import codecs
 import os
 
 here = os.path.abspath(os.path.dirname(__file__))
-
+datadir = os.path.join('whichlang','language-models')
+datafiles = [(d, [os.path.join(d,f) for f in files])
+    for d, folders, files in os.walk(datadir)]
 with codecs.open(os.path.join(here, "README.md"), encoding="utf-8") as fh:
     long_description = "\n" + fh.read()
 
-VERSION = '0.0.2'
-DESCRIPTION = 'Does language identification'
-LONG_DESCRIPTION = 'A package that allows to identify language of a given text.'
+VERSION = '0.0.4'
+DESCRIPTION = 'Does language identification for Indian languages'
+LONG_DESCRIPTION = 'A package that allows to identify language of a given text for Indian languages.'
 
 # Setting up
 setup(
@@ -22,6 +24,8 @@ setup(
     long_description=long_description,
     url = 'https://github.com/xtraspeed/whichlang',
     packages=find_packages(),
+    include_package_data=True,
+    data_files = datafiles,
     install_requires=[],
     keywords=['python', 'language identification'],
     classifiers=[

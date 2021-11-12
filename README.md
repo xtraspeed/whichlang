@@ -13,14 +13,13 @@ pip install whichlang
 ## Usage
 
 ```python
-import whichlang
-from whichlang import which_lang
+from whichlang import whichlang as wl
 
 f = open('sample-test-files\\sample-hindi.txt','r')
 data = f.read()
 
 # returns tuple of top 3 probable languages, first one being most probable language
-print (which_lang(data))
+print (wl.which_lang(data))
 >>> ('Hindi', 'Marathi', 'Punjabi') #Hindi is most probable. 
 ```
 
